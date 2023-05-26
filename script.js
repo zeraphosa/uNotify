@@ -1,3 +1,5 @@
 import Toast from "./Toast.js";
 
-const toast = new Toast({ text: "Hello", autoClose: false, canClose: false });
+document.querySelector("button").addEventListener("click", () => {
+  const toast = new Toast({ text: "Hello", autoClose: false, position: "bottom-center"});
+});

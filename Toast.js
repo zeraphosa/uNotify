@@ -13,9 +13,12 @@ export default class Toast {
   constructor(options) {
     this.#toastElement = document.createElement("div");
     this.#toastElement.classList.add("toast");
+    requestAnimationFrame(() => {
+      this.#toastElement.classList.add("show");
+    });
     this.#removeBinded = this.remove.bind(this);
     this.update({ ...DEFAULT_OPTIONS, ...options });
-}
+  }
 
   set autoClose(value) {
     if (value === false) return;
@@ -37,7 +40,7 @@ export default class Toast {
   }
 
   set canClose(value) {
-    this.#toastElement.classList.toggle("can-close", value)
+    this.#toastElement.classList.toggle("can-close", value);
     if (value) {
       this.#toastElement.addEventListener("click", this.#removeBinded);
     } else {
@@ -53,10 +56,13 @@ export default class Toast {
 
   remove() {
     const container = this.#toastElement.parentElement;
-    this.#toastElement.remove();
+    this.#toastElement.classList.remove("show");
+    this.#toastElement.addEventListener("transitionend", () => {
+      this.#toastElement.remove();
+      if (container.hasChildNodes()) return;
+      container.remove();
+    });
     this.onClose();
-    if (container.hasChildNodes()) return;
-    container.remove();
   }
 }
 
