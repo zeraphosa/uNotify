@@ -1,17 +1,21 @@
 const DEFAULT_OPTIONS = {
   autoClose: 5000,
   position: "top-right",
+  onClose: () => {},
+  canClose: true,
 };
 
 export default class Toast {
   #toastElement;
   #autoCloseTimeout;
+  #removeBinded;
 
   constructor(options) {
     this.#toastElement = document.createElement("div");
     this.#toastElement.classList.add("toast");
+    this.#removeBinded = this.remove.bind(this);
     this.update({ ...DEFAULT_OPTIONS, ...options });
-  }
+}
 
   set autoClose(value) {
     if (value === false) return;
@@ -32,6 +36,15 @@ export default class Toast {
     this.#toastElement.textContent = value;
   }
 
+  set canClose(value) {
+    this.#toastElement.classList.toggle("can-close", value)
+    if (value) {
+      this.#toastElement.addEventListener("click", this.#removeBinded);
+    } else {
+      this.#toastElement.removeEventListener("click", this.#removeBinded);
+    }
+  }
+
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
       this[key] = value;
@@ -41,6 +54,7 @@ export default class Toast {
   remove() {
     const container = this.#toastElement.parentElement;
     this.#toastElement.remove();
+    this.onClose();
     if (container.hasChildNodes()) return;
     container.remove();
   }

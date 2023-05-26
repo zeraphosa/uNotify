@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.toast::after {
+.toast.can-close::after {
   content: "\00D7";
   position: absolute;
   top: 2px;
