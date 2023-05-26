@@ -1,3 +1,8 @@
+const DEFAULT_OPTIONS = {
+  autoClose: 5000,
+  position: "top-right",
+};
+
 export default class Toast {
   #toastElement;
   #autoCloseTimeout;
@@ -6,7 +11,7 @@ export default class Toast {
     this.#toastElement = document.createElement("div");
     this.#toastElement.classList.add("toast");
 
-    Object.entries(options).forEach(([key, value]) => {
+    Object.entries({ ...DEFAULT_OPTIONS, ...options }).forEach(([key, value]) => {
       this[key] = value;
     });
   }
