@@ -10,10 +10,7 @@ export default class Toast {
   constructor(options) {
     this.#toastElement = document.createElement("div");
     this.#toastElement.classList.add("toast");
-
-    Object.entries({ ...DEFAULT_OPTIONS, ...options }).forEach(([key, value]) => {
-      this[key] = value;
-    });
+    this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
   set autoClose(value) {
@@ -23,16 +20,24 @@ export default class Toast {
   }
 
   set position(value) {
+    const currentContainer = this.#toastElement.parentElement;
     const selector = `.toast-container[data-position="${value}"]`;
     const container = document.querySelector(selector) || createContainer(value);
     container.append(this.#toastElement);
+    if (currentContainer == null || currentContainer.hasChildNodes()) return;
+    currentContainer.remove();
   }
 
   set text(value) {
     this.#toastElement.textContent = value;
   }
 
-  update() {}
+  update(options) {
+    Object.entries(options).forEach(([key, value]) => {
+      this[key] = value;
+    });
+  }
+
   remove() {
     const container = this.#toastElement.parentElement;
     this.#toastElement.remove();
