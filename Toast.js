@@ -8,7 +8,7 @@ const DEFAULT_OPTIONS = {
 
 export default class Toast {
   #toastElement;
-  #autoCloseTimeout;
+  #autoCloseInterval;
   #progressInterval;
   #removeBinded;
   #timeVisible = 0;
@@ -33,8 +33,24 @@ export default class Toast {
     this.#autoClose = value;
     this.#timeVisible = 0;
     if (value === false) return;
-    if (this.#autoCloseTimeout != null) clearTimeout(this.#autoCloseTimeout);
-    this.#autoCloseTimeout = setTimeout(() => this.remove(), value);
+    let lastTime;
+    const func = (time) => {
+      if (lastTime == null) {
+        lastTime = time;
+        this.#autoCloseInterval = requestAnimationFrame(func);
+        return;
+      }
+      if (!this.#isPaused) {
+        this.#timeVisible += time - lastTime;
+        if (this.#timeVisible >= this.#autoClose) {
+          this.remove();
+          return;
+        }
+      }
+      lastTime = time;
+      this.#autoCloseInterval = requestAnimationFrame(func);
+    };
+    this.#autoCloseInterval = requestAnimationFrame(func);
   }
 
   set position(value) {
@@ -64,18 +80,10 @@ export default class Toast {
     this.#toastElement.style.setProperty("--progress", 1);
 
     if (value) {
-      let lastTime;
-      const func = (time) => {
-        if (lastTime == null) {
-          lastTime = time;
-          this.#progressInterval = requestAnimationFrame(func);
-          return;
-        }
-        if (this.#isPaused) {
-          this.#timeVisible += time - lastTime;
+      const func = () => {
+        if (!this.#isPaused) {
           this.#toastElement.style.setProperty("--progress", 1 - this.#timeVisible / this.#autoClose);
         }
-        lastTime = time;
         this.#progressInterval = requestAnimationFrame(func);
       };
 
@@ -83,8 +91,7 @@ export default class Toast {
     }
   }
 
-  set pausedOnHover(value) {
-    this.#toastElement.classList.toggle("can-close", value);
+  set pauseOnHover(value) {
     if (value) {
       this.#toastElement.addEventListener("mouseover", this.#pause);
       this.#toastElement.addEventListener("mouseleave", this.#unpause);
@@ -101,7 +108,7 @@ export default class Toast {
   }
 
   remove() {
-    clearTimeout(this.#autoCloseTimeout);
+    cancelAnimationFrame(this.#autoCloseInterval);
     cancelAnimationFrame(this.#progressInterval);
     const container = this.#toastElement.parentElement;
     this.#toastElement.classList.remove("show");
