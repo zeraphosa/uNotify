@@ -9,7 +9,10 @@ const DEFAULT_OPTIONS = {
 export default class Toast {
   #toastElement;
   #autoCloseTimeout;
+  #progressInterval;
   #removeBinded;
+  #visibleSince;
+  #autoClose;
 
   constructor(options) {
     this.#toastElement = document.createElement("div");
@@ -22,6 +25,8 @@ export default class Toast {
   }
 
   set autoClose(value) {
+    this.#visibleSince = new Date();
+    this.#autoClose = value;
     if (value === false) return;
     if (this.#autoCloseTimeout != null) clearTimeout(this.#autoCloseTimeout);
     this.#autoCloseTimeout = setTimeout(() => this.remove(), value);
@@ -51,6 +56,14 @@ export default class Toast {
 
   set showProgress(value) {
     this.#toastElement.classList.toggle("progress", value);
+    this.#toastElement.style.setProperty("--progress", 1);
+
+    if (value) {
+      this.#progressInterval = setInterval(() => {
+        const timeVisible = new Date() - this.#visibleSince;
+        this.#toastElement.style.setProperty("--progress", 1 - timeVisible / this.#autoClose);
+      }, 10);
+    }
   }
 
   update(options) {
@@ -60,6 +73,8 @@ export default class Toast {
   }
 
   remove() {
+    clearTimeout(this.#autoCloseTimeout);
+    clearInterval(this.#progressInterval);
     const container = this.#toastElement.parentElement;
     this.#toastElement.classList.remove("show");
     this.#toastElement.addEventListener("transitionend", () => {
