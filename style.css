@@ -5,7 +5,9 @@
   border: 1px solid #333;
   border-radius: 0.25em;
   position: relative;
+  cursor: pointer;
 }
+
 .toast::after {
   content: "\00D7";
   position: absolute;
@@ -17,6 +19,9 @@
   width: 250px;
   position: fixed;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .toast-container[data-position^="top-"] {
