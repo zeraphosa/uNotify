@@ -1,5 +1,6 @@
 const DEFAULT_OPTIONS = {
-  autoClose: 5000,
+  text: "Hey there !",
+  autoClose: 7000,
   position: "top-right",
   onClose: () => {},
   canClose: true,

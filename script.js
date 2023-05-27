@@ -1,5 +1,5 @@
 import Toast from "./Toast.js";
 
 document.querySelector("button").addEventListener("click", () => {
-  const toast = new Toast({ text: "Hello", pauseOnHover: true, pauseOnFocusLoss: true });
+  const toast = new Toast({ pauseOnHover: true, pauseOnFocusLoss: true, autoClose: false});
 });

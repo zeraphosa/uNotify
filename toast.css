@@ -8,6 +8,7 @@
   cursor: pointer;
   transition: transform 300ms ease-in-out;
   overflow: hidden;
+  padding-right: 1rem;
 }
 .default {
   background-color: #fff;
