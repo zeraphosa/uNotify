@@ -11,11 +11,11 @@
   </head>
   <body>
     <div class="container">
-      <div>
+      <div class="header">
         <h1>UNotify</h1>
-        <p>Made with vanilla javascript.</p>
+        <span>Made with vanilla javascript.</span>
       </div>
-      <main>
+      <div class="main">
         <select name="toasts" class="select">
           <option value="Default">Default</option>
           <option value="Info">Info</option>
@@ -31,20 +31,24 @@
           <option value="bottomC">bottom-center</option>
           <option value="bottomL">bottom-left</option>
         </select>
-        <div>
-          <input type="checkbox" />
-          <label>Auto Close</label>
+        <div class="checkbox">
+          <div>
+            <input type="checkbox" id="op1" />
+            <label for="op1">Auto close</label>
+          </div>
+          <div>
+            <input type="checkbox" id="op2" />
+            <label for="op2">Show Progress line</label>
+          </div>
+          <div>
+            <input type="checkbox" id="op3" />
+            <label for="op3">Close on click</label>
+          </div>
         </div>
-        <div>
-          <input type="checkbox" />
-          <label>Show Progress line</label>
-        </div>
-        <div>
-          <input type="checkbox" />
-          <label>Can Close</label>
-        </div>
+        <input class="content" type="text" placeholder="toast header" />
+        <input class="content" type="text" placeholder="toast value" />
         <button class="show-btn">Show Toast</button>
-      </main>
+      </div>
     </div>
   </body>
 </html>
