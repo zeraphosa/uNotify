@@ -4,6 +4,7 @@ const DEFAULT_OPTIONS = {
   onClose: () => {},
   canClose: true,
   showProgress: true,
+  toastType: "default",
 };
 
 export default class Toast {
@@ -116,6 +117,10 @@ export default class Toast {
     } else {
       document.removeEventListener("visibilitychange", this.#visibilityChange);
     }
+  }
+
+  set toastType(value) {
+    this.#toastElement.classList.add(value);
   }
 
   update(options) {

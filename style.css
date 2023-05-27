@@ -1,7 +1,6 @@
 .toast {
   box-sizing: border-box;
   padding: 0.75rem;
-  background-color: #fff;
   border: 1px solid #333;
   border-radius: 0.25em;
   position: relative;
@@ -9,7 +8,18 @@
   transition: transform 300ms ease-in-out;
   overflow: hidden;
 }
-
+.default {
+  background-color: #fff;
+}
+.success {
+  background-color: green;
+}
+.error {
+  background-color: red;
+}
+.warning {
+  background-color: yellow;
+}
 .toast-container[data-position$="-right"] .toast {
   transform: translateX(110%);
 }
