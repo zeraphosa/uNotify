@@ -1,80 +1,109 @@
-.toast {
+@import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
+body {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  padding: 0.75rem;
-  border: 1px solid #333;
-  border-radius: 0.25em;
-  position: relative;
+}
+h1 {
+  padding: 0;
+  margin: 0;
+  font-weight: 800;
+  font-size: 5em;
+  margin-right: -10px;
+  font-family: "Monomaniac One", sans-serif;
+  background: #ca4246;
+  background-color: #ca4246;
+  background: conic-gradient(#ca4246 16.666%, #e16541 16.666%, #e16541 33.333%, #f18f43 33.333%, #f18f43 50%, #8b9862 50%, #8b9862 66.666%, #476098 66.666%, #476098 83.333%, #a7489b 83.333%);
+  background-size: 57%;
+  background-repeat: repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-text-animation-rev 0.5s ease forwards;
   cursor: pointer;
-  transition: transform 300ms ease-in-out;
-  overflow: hidden;
 }
-.default {
-  background-color: #fff;
+h1:hover {
+  animation: rainbow-text-animation 0.5s ease forwards;
 }
-.success {
-  background-color: green;
+@keyframes rainbow-text-animation {
+  0% {
+    background-size: 57%;
+    background-position: 0 0;
+  }
+  20% {
+    background-size: 57%;
+    background-position: 0 1em;
+  }
+  100% {
+    background-size: 300%;
+    background-position: -9em 1em;
+  }
 }
-.error {
-  background-color: red;
+@keyframes rainbow-text-animation-rev {
+  0% {
+    background-size: 300%;
+    background-position: -9em 1em;
+  }
+  20% {
+    background-size: 57%;
+    background-position: 0 1em;
+  }
+  100% {
+    background-size: 57%;
+    background-position: 0 0;
+  }
 }
-.warning {
-  background-color: yellow;
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
 }
-.toast-container[data-position$="-right"] .toast {
-  transform: translateX(110%);
-}
-.toast-container[data-position$="-left"] .toast {
-  transform: translateX(-110%);
-}
-.toast-container[data-position="top-center"] .toast {
-  transform: translateY(-100vh);
-}
-.toast-container[data-position="bottom-center"] .toast {
-  transform: translateY(100vh);
-}
-.toast-container .toast.show {
-  transform: translate(0, 0);
-}
-.toast.progress::before {
-  content: "";
-  position: absolute;
-  height: 2px;
-  width: calc(100% * var(--progress, 1));
-  background-color: blue;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin-right: auto;
-}
-.toast.can-close::after {
-  content: "\00D7";
-  position: absolute;
-  top: 2px;
-  right: 5px;
-}
-
-.toast-container {
-  width: 250px;
-  position: fixed;
-  margin: 10px;
+.container {
+  max-width: 700px;
+  height: 100vh;
+  margin: 0 auto;
+  padding-top: 150px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 30px;
 }
-
-.toast-container[data-position^="top-"] {
-  top: 0;
+.container div {
+  text-align: center;
 }
-.toast-container[data-position^="bottom-"] {
-  bottom: 0;
+.container main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  height: auto;
+  gap: 20px;
 }
-.toast-container[data-position$="-right"] {
-  right: 0;
+.select,
+.show-btn {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
 }
-.toast-container[data-position$="-left"] {
-  left: 0;
+.select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-color: #fafafa;
+  height: 45px;
+  width: 100%;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
+  background-position: 100%;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
 }
-.toast-container[data-position$="-center"] {
-  left: 50%;
-  transform: translateX(-50%);
+.show-btn {
+  border: none;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }

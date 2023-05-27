@@ -4,11 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./toast.css" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" type="module"></script>
     <title>Unotify</title>
   </head>
   <body>
-    <button>Show toast</button>
+    <div class="container">
+      <div>
+        <h1>UNotify</h1>
+        <p>Made with vanilla javascript.</p>
+      </div>
+      <main>
+        <select name="toasts" class="select">
+          <option value="Default">Default</option>
+          <option value="Info">Info</option>
+          <option value="Success">Success</option>
+          <option value="Danger">Danger</option>
+          <option value="Warning">Warning</option>
+        </select>
+        <select name="positions" class="select">
+          <option value="topR">top-right</option>
+          <option value="topC">top-center</option>
+          <option value="topL">top-left</option>
+          <option value="bottomR">bottom-right</option>
+          <option value="bottomC">bottom-center</option>
+          <option value="bottomL">bottom-left</option>
+        </select>
+        <div>
+          <input type="checkbox" />
+          <label>Auto Close</label>
+        </div>
+        <div>
+          <input type="checkbox" />
+          <label>Show Progress line</label>
+        </div>
+        <div>
+          <input type="checkbox" />
+          <label>Can Close</label>
+        </div>
+        <button class="show-btn">Show Toast</button>
+      </main>
+    </div>
   </body>
 </html>
