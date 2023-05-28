@@ -5,12 +5,14 @@ var positionEl = document.getElementById("positions");
 var autoCloseEl = document.getElementById("op1");
 var progressEl = document.getElementById("op2");
 var canCloseEl = document.getElementById("op3");
+var toastTextEl = document.getElementById("text");
 
 let toastValue = "default";
 let positionValue = "top-right";
 let autoCloseStatus = 5000;
 let progressStatus = false;
 let canCloseStatus = true;
+let toastTextValue = "Hey There !";
 
 toastEl.addEventListener("change", () => {
   toastValue = toastEl.value;
@@ -31,7 +33,10 @@ progressEl.addEventListener("change", () => {
 canCloseEl.addEventListener("change", () => {
   canCloseStatus = !canCloseStatus;
 });
+toastTextEl.addEventListener("change", (e)=>{
+  toastTextValue = e.target.value;
+})
 
 document.querySelector("button").addEventListener("click", () => {
-  new Toast({ text: "Hey There !", autoClose: autoCloseStatus, position: positionValue, canClose: canCloseStatus, showProgress: progressStatus, toastType: toastValue });
+  new Toast({ text: toastTextValue, autoClose: autoCloseStatus, position: positionValue, canClose: canCloseStatus, showProgress: progressStatus, toastType: toastValue });
 });
