@@ -3,8 +3,8 @@ const DEFAULT_OPTIONS = {
   autoClose: 7000,
   position: "top-right",
   onClose: () => {},
-  canClose: true,
-  showProgress: true,
+  canClose: false,
+  showProgress: false,
   toastType: "default",
 };
 
